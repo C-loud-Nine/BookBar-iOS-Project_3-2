@@ -56,9 +56,9 @@ struct LoginView: View {
             .background(LinearGradient(gradient: Gradient(colors: [Color.white, Color.blue.opacity(0.2)]), startPoint: .top, endPoint: .bottom))
             .ignoresSafeArea()
 
-            // Navigation to ContentView on successful login
+            // Navigation to CatalogPageViewController on successful login
             .navigationDestination(isPresented: $isAuthenticated) {
-                ContentView() // Destination to navigate to
+                CatalogPageViewControllerWrapper() // Use the wrapper for navigation
             }
         }
     }

@@ -39,9 +39,22 @@
 		26535B792D21BB7800E47E7B /* libraryUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = libraryUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		26B25E332D25EA0A006A8D19 /* Exceptions for "library" folder in "library" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 26535B5E2D21BB7700E47E7B /* library */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		26535B612D21BB7700E47E7B /* library */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				26B25E332D25EA0A006A8D19 /* Exceptions for "library" folder in "library" target */,
+			);
 			path = library;
 			sourceTree = "<group>";
 		};
@@ -433,6 +446,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"library/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = library/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -461,6 +475,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"library/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = library/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
