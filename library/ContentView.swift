@@ -1,24 +1,25 @@
-//
-//  ContentView.swift
-//  library
-//
-//  Created by Shafi on 12/29/24.
-//
-
 import SwiftUI
 
 struct ContentView: View {
+    @EnvironmentObject var authViewModel: AuthenticationViewModel
+    @State private var isActive = false
+
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        Group {
+            if !isActive {
+                SplashScreenView(isActive: $isActive)
+            } else if !authViewModel.isAuthenticated {
+                RegisterView()
+            } else {
+                MainTabView()
+            }
         }
-        .padding()
     }
 }
 
-#Preview {
-    ContentView()
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+            .environmentObject(AuthenticationViewModel())
+    }
 }

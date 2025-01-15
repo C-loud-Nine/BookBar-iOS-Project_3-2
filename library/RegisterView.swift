@@ -1,13 +1,13 @@
-//
 //  RegisterView.swift
 //  library
 //
 //  Created by Shafi on 12/30/24.
-//
 
 import SwiftUI
 import FirebaseAuth
 import FirebaseFirestore
+import Cloudinary
+
 
 struct RegisterView: View {
     @State private var name = ""
@@ -17,68 +17,101 @@ struct RegisterView: View {
     @State private var showLogin = false
 
     var body: some View {
-        VStack(spacing: 30) {
-            // Title
-            Text("Create Account")
-                .font(.largeTitle)
-                .fontWeight(.bold)
-                .foregroundColor(.green)
-                .padding(.top, 40)
-
-            // Icon
-            Image(systemName: "person.badge.plus.fill")
-                .resizable()
-                .frame(width: 100, height: 100)
-                .foregroundColor(.green)
+        ScrollView {
+            VStack(spacing: 25) {
+                // Header
+                VStack(spacing: 15) {
+                    Image(systemName: "person.badge.plus")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 80, height: 80)
+                        .foregroundColor(.blue)
+                        .padding(.top, 40)
+                    
+                    Text("Create Account")
+                        .font(.title)
+                        .fontWeight(.bold)
+                }
                 .padding(.bottom, 20)
 
-            // Name Field
-            TextFieldWithIcon(icon: "person.fill", placeholder: "Full Name", text: $name)
+                // Form Fields
+                VStack(spacing: 20) {
+                    // Name Field
+                    HStack {
+                        Image(systemName: "person.fill")
+                            .foregroundColor(.gray)
+                            .frame(width: 40)
+                        TextField("Full Name", text: $name)
+                    }
+                    .padding()
+                    .background(Color(.systemGray6))
+                    .cornerRadius(12)
+                    
+                    // Email Field
+                    HStack {
+                        Image(systemName: "envelope.fill")
+                            .foregroundColor(.gray)
+                            .frame(width: 40)
+                        TextField("Email Address", text: $email)
+                            .keyboardType(.emailAddress)
+                            .autocapitalization(.none)
+                    }
+                    .padding()
+                    .background(Color(.systemGray6))
+                    .cornerRadius(12)
+                    
+                    // Password Field
+                    HStack {
+                        Image(systemName: "lock.fill")
+                            .foregroundColor(.gray)
+                            .frame(width: 40)
+                        SecureField("Password", text: $password)
+                    }
+                    .padding()
+                    .background(Color(.systemGray6))
+                    .cornerRadius(12)
+                }
+                .padding(.horizontal)
 
-            // Email Field
-            TextFieldWithIcon(icon: "envelope.fill", placeholder: "Email Address", text: $email)
+                // Error Message
+                if !errorMessage.isEmpty {
+                    Text(errorMessage)
+                        .foregroundColor(.red)
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal)
+                }
 
-            // Password Field
-            SecureFieldWithIcon(icon: "lock.fill", placeholder: "Password", text: $password)
-
-            // Register Button
-            Button(action: registerUser) {
-                Text("Register")
+                // Register Button
+                Button(action: registerUser) {
+                    HStack {
+                        Text("Create Account")
+                            .fontWeight(.semibold)
+                        Image(systemName: "arrow.right")
+                    }
+                    .foregroundColor(.white)
                     .frame(maxWidth: .infinity)
                     .padding()
-                    .background(Color.green)
-                    .foregroundColor(.white)
-                    .font(.headline)
-                    .cornerRadius(10)
-            }
-            .padding(.horizontal)
-
-            // Error Message
-            if !errorMessage.isEmpty {
-                Text(errorMessage)
-                    .foregroundColor(.red)
-                    .multilineTextAlignment(.center)
-                    .padding(.horizontal)
-            }
-
-            // Already Registered
-            HStack {
-                Text("Already registered?")
-                    .foregroundColor(.gray)
-
-                Button(action: { showLogin = true }) {
-                    Text("Log in here")
-                        .foregroundColor(.blue)
-                        .underline()
+                    .background(Color.blue)
+                    .cornerRadius(12)
                 }
-            }
-            .padding(.top, 10)
+                .padding(.horizontal)
+                .padding(.top, 10)
 
-            Spacer()
+                // Login Link
+                HStack {
+                    Text("Already have an account?")
+                        .foregroundColor(.gray)
+                    Button(action: { showLogin = true }) {
+                        Text("Sign In")
+                            .fontWeight(.semibold)
+                            .foregroundColor(.blue)
+                    }
+                }
+                .padding(.top, 20)
+            }
+            .padding()
         }
-        .padding()
-        .background(LinearGradient(gradient: Gradient(colors: [Color.white, Color.green.opacity(0.2)]), startPoint: .top, endPoint: .bottom))
-        .ignoresSafeArea()
+        .navigationBarBackButtonHidden(true)
         .fullScreenCover(isPresented: $showLogin) {
             LoginView()
         }
@@ -100,7 +133,8 @@ struct RegisterView: View {
                 Firestore.firestore().collection("users").document(uid).setData([
                     "name": name,
                     "email": email,
-                    "created_at": Timestamp()
+                    "created_at": Timestamp(),
+                    "imageUrl": "" // Store the image URL later after uploading
                 ]) { firestoreError in
                     if let firestoreError = firestoreError {
                         errorMessage = "Error saving user info: \(firestoreError.localizedDescription)"
@@ -117,7 +151,44 @@ struct RegisterView: View {
     }
 }
 
+// Custom TextField Component
+struct CustomTextField: View {
+    let icon: String
+    let placeholder: String
+    @Binding var text: String
+    
+    var body: some View {
+        HStack {
+            Image(systemName: icon)
+                .foregroundColor(.gray)
+                .frame(width: 44)
+            
+            TextField(placeholder, text: $text)
+        }
+        .padding()
+        .background(Color(.systemBackground))
+        .cornerRadius(15)
+        .shadow(color: .gray.opacity(0.2), radius: 5, x: 0, y: 2)
+    }
+}
 
-#Preview(){
-    RegisterView();
+// Custom SecureField Component
+struct CustomSecureField: View {
+    let icon: String
+    let placeholder: String
+    @Binding var text: String
+    
+    var body: some View {
+        HStack {
+            Image(systemName: icon)
+                .foregroundColor(.gray)
+                .frame(width: 44)
+            
+            SecureField(placeholder, text: $text)
+        }
+        .padding()
+        .background(Color(.systemBackground))
+        .cornerRadius(15)
+        .shadow(color: .gray.opacity(0.2), radius: 5, x: 0, y: 2)
+    }
 }

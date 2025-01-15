@@ -2,11 +2,14 @@ import SwiftUI
 
 struct CatalogPageViewControllerWrapper: UIViewControllerRepresentable {
     func makeUIViewController(context: Context) -> CatalogPageViewController {
-        return CatalogPageViewController() // Initialize the CatalogPageViewController
+        let controller = CatalogPageViewController()
+        // Reduce the bottom safe area inset
+        controller.additionalSafeAreaInsets = UIEdgeInsets(top: 0, left: 0, bottom: 20, right: 0)
+        return controller
     }
 
     func updateUIViewController(_ uiViewController: CatalogPageViewController, context: Context) {
-        // You can update your view controller here, such as passing data, if needed.
+        // Updates if needed
     }
 }
 

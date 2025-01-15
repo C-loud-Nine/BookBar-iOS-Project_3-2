@@ -3,25 +3,36 @@ import Firebase
 
 @main
 struct libraryApp: App {
-    
-    // Declare AppDelegate as a property here
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+    @StateObject private var authViewModel = AuthenticationViewModel()
+    
+    // Initialize FirebaseApp here to avoid the fatal error
+    init() {
+        FirebaseApp.configure()
+        
+        // Customize navigation bar appearance
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = .systemBackground
+        appearance.titleTextAttributes = [.foregroundColor: UIColor.label]
+        appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.label]
+        
+        UINavigationBar.appearance().standardAppearance = appearance
+        UINavigationBar.appearance().compactAppearance = appearance
+        UINavigationBar.appearance().scrollEdgeAppearance = appearance
+    }
     
     var body: some Scene {
         WindowGroup {
-            SplashScreenView() // Your initial view
+            ContentView()
+                .environmentObject(authViewModel)
         }
     }
 }
 
-// AppDelegate to handle Firebase configuration
 class AppDelegate: NSObject, UIApplicationDelegate {
-    
+    // No need to configure Firebase here anymore
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Initialize Firebase
-        print("Configuring Firebase...")
-        FirebaseApp.configure()
-        print("Firebase configured successfully.")
-        return true
+        return true // Firebase is now configured in the @main struct
     }
 }

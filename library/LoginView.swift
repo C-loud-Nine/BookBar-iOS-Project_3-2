@@ -1,85 +1,152 @@
+//  LoginView.swift
+//  library
+//
+//  Created by Shafi on 12/30/24.
+
 import SwiftUI
 import FirebaseAuth
 
 struct LoginView: View {
     @State private var email = ""
     @State private var password = ""
-    @State private var errorMessage = ""
-    @State private var isAuthenticated = false
-
+    @State private var showAlert = false
+    @State private var alertMessage = ""
+    @State private var isLoading = false
+    @State private var showRegister = false
+    
     var body: some View {
         NavigationStack {
-            VStack(spacing: 30) {
-                // Title
-                Text("Welcome Back!")
-                    .font(.largeTitle)
-                    .fontWeight(.bold)
-                    .foregroundColor(.blue)
-                    .padding(.top, 40)
-
-                // Icon
-                Image(systemName: "person.crop.circle.fill")
-                    .resizable()
-                    .frame(width: 100, height: 100)
-                    .foregroundColor(.blue)
-                    .padding(.bottom, 20)
-
-                // Email Field
-                TextFieldWithIcon(icon: "envelope.fill", placeholder: "Email Address", text: $email)
-
-                // Password Field
-                SecureFieldWithIcon(icon: "lock.fill", placeholder: "Password", text: $password)
-
-                // Login Button
-                Button(action: loginUser) {
-                    Text("Log In")
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(Color.blue)
-                        .foregroundColor(.white)
-                        .font(.headline)
-                        .cornerRadius(10)
-                }
-                .padding(.horizontal)
-
-                // Error Message
-                if !errorMessage.isEmpty {
-                    Text(errorMessage)
-                        .foregroundColor(.red)
-                        .multilineTextAlignment(.center)
+            ZStack {
+                // Background gradient
+                LinearGradient(
+                    gradient: Gradient(colors: [Color.blue.opacity(0.3), Color.white]),
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing
+                )
+                .ignoresSafeArea()
+                
+                ScrollView {
+                    VStack(spacing: 25) {
+                        // Header
+                        VStack(spacing: 15) {
+                            Image(systemName: "books.vertical.fill")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 80, height: 80)
+                                .foregroundColor(.blue)
+                                .padding(.top, 40)
+                            
+                            Text("Welcome Back!")
+                                .font(.title)
+                                .fontWeight(.bold)
+                            
+                            Text("Sign in to continue")
+                                .foregroundColor(.gray)
+                        }
+                        .padding(.bottom, 20)
+                        
+                        // Form Fields
+                        VStack(spacing: 20) {
+                            // Email Field
+                            HStack {
+                                Image(systemName: "envelope.fill")
+                                    .foregroundColor(.gray)
+                                    .frame(width: 40)
+                                TextField("Email Address", text: $email)
+                                    .keyboardType(.emailAddress)
+                                    .textInputAutocapitalization(.never)
+                                    .autocorrectionDisabled()
+                            }
+                            .padding()
+                            .background(Color.white)
+                            .cornerRadius(12)
+                            .shadow(color: .black.opacity(0.05), radius: 5, x: 0, y: 2)
+                            
+                            // Password Field
+                            HStack {
+                                Image(systemName: "lock.fill")
+                                    .foregroundColor(.gray)
+                                    .frame(width: 40)
+                                SecureField("Password", text: $password)
+                            }
+                            .padding()
+                            .background(Color.white)
+                            .cornerRadius(12)
+                            .shadow(color: .black.opacity(0.05), radius: 5, x: 0, y: 2)
+                        }
                         .padding(.horizontal)
+                        
+                        // Login Button
+                        Button(action: signIn) {
+                            HStack {
+                                if isLoading {
+                                    ProgressView()
+                                        .progressViewStyle(CircularProgressViewStyle(tint: .white))
+                                } else {
+                                    Text("Sign In")
+                                        .fontWeight(.semibold)
+                                    Image(systemName: "arrow.right")
+                                }
+                            }
+                            .foregroundColor(.white)
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(
+                                LinearGradient(
+                                    gradient: Gradient(colors: [Color.blue, Color.blue.opacity(0.8)]),
+                                    startPoint: .leading,
+                                    endPoint: .trailing
+                                )
+                            )
+                            .cornerRadius(12)
+                            .shadow(color: .blue.opacity(0.3), radius: 5, x: 0, y: 2)
+                        }
+                        .disabled(isLoading)
+                        .padding(.horizontal)
+                        .padding(.top, 10)
+                        
+                        // Register Navigation
+                        NavigationLink(destination: RegisterView()
+                            .navigationBarBackButtonHidden(true)
+                        ) {
+                            HStack(spacing: 4) {
+                                Text("Don't have an account?")
+                                    .foregroundColor(.gray)
+                                Text("Register")
+                                    .fontWeight(.semibold)
+                                    .foregroundColor(.blue)
+                            }
+                            .padding(.top, 20)
+                        }
+                        
+                        Spacer()
+                    }
+                    .padding()
                 }
-
-                Spacer()
             }
-            .padding()
-            .background(LinearGradient(gradient: Gradient(colors: [Color.white, Color.blue.opacity(0.2)]), startPoint: .top, endPoint: .bottom))
-            .ignoresSafeArea()
-
-            // Navigation to CatalogPageViewController on successful login
-            .navigationDestination(isPresented: $isAuthenticated) {
-                CatalogPageViewControllerWrapper() // Use the wrapper for navigation
+            .alert("Error", isPresented: $showAlert) {
+                Button("OK", role: .cancel) { }
+            } message: {
+                Text(alertMessage)
             }
         }
     }
-
-    private func loginUser() {
-        guard !email.isEmpty, !password.isEmpty else {
-            errorMessage = "Email and password are required."
-            return
-        }
-
+    
+    private func signIn() {
+        isLoading = true
+        
         Auth.auth().signIn(withEmail: email, password: password) { result, error in
+            isLoading = false
+            
             if let error = error {
-                errorMessage = "Login failed: \(error.localizedDescription)"
+                alertMessage = error.localizedDescription
+                showAlert = true
                 return
             }
-
-            // Reset fields on successful login
-            email = ""
-            password = ""
-            isAuthenticated = true
-            errorMessage = "Login successful!"
+            
+            // Successfully logged in
+            // The app will automatically navigate to the main view
+            // because of the authentication state listener
         }
     }
 }

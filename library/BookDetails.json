@@ -1,0 +1,78 @@
+[
+    {
+      "id": 1,
+      "title": "The God of Small Things",
+      "author": "Arundhati Roy",
+      "edition": "Fourth Edition",
+      "published": "2010-05-11",
+      "pages": "172",
+      "publisher": "The Press Pressed",
+      "img": "https://res.cloudinary.com/dbmxtao2a/image/upload/v1736516108/11476d1a3a2fd2917b24219c3d4f8650_lmkhf0.jpg",
+      "categories": [
+        "Fiction", "India", "Historical Fiction", "Classics",
+        "Contemporary", "Literary Fiction", "Indian Literature",
+        "Novels", "Literature", "Asia"
+      ],
+      "description": "The year is 1969. In the state of Kerala, on the southernmost tip of India, a skyblue Plymouth with chrome tailfins is stranded on the highway amid a Marxist workers' demonstration. Inside the car sit two-egg twins Rahel and Esthappen, and so begins their tale... Armed only with the invincible innocence of children, they fashion a childhood for themselves in the shade of the wreck that is their family—their lonely, lovely mother, Ammu (who loves by night the man her children love by day), their blind grandmother, Mammachi (who plays Handel on her violin), their beloved uncle Chacko (Rhodes scholar, pickle baron, radical Marxist, bottom-pincher), their enemy, Baby Kochamma (ex-nun and incumbent grandaunt), and the ghost of an imperial entomologist's moth (with unusually dense dorsal tufts). When their English cousin, Sophie Mol, and her mother, Margaret Kochamma, arrive on a Christmas visit, Esthappen and Rahel learn that Things Can Change in a Day. That lives can twist into new, ugly shapes, even cease forever, beside their river 'graygreen.' With fish in it. With the sky and trees in it. And at night, the broken yellow moon in it. The brilliantly plotted story uncoils with an agonizing sense of foreboding and inevitability. Yet nothing prepares you for what lies at the heart of it. The God of Small Things takes on the Big Themes—Love. Madness. Hope. Infinite Joy. Here is a writer who dares to break the rules. To dislocate received rhythms and create the language she requires, a language that is at once classical and unprecedented. Arundhati Roy has given us a book that is anchored to anguish, but fueled by wit and magic."
+    },
+    {
+      "id": 2,
+      "title": "To Kill a Mockingbird",
+      "author": "Harper Lee",
+      "edition": "50th Anniversary Edition",
+      "published": "1960-07-11",
+      "pages": "324",
+      "publisher": "J.B. Lippincott & Co.",
+      "img": "https://res.cloudinary.com/dbmxtao2a/image/upload/v1736516123/cover-web_zvqgtu.jpg",
+      "categories": [
+        "Fiction", "Classic", "Historical Fiction", "Literature",
+        "Southern Gothic", "Coming-of-age", "American Literature"
+      ],
+      "description": "Harper Lee’s Pulitzer Prize-winning masterwork of honor and injustice in the deep South—and the heroism of one man’s struggle for justice. Published in 1960, it was an immediate success, winning the Pulitzer Prize in 1961, and has become a modern American classic. The unforgettable novel of a childhood in a sleepy Southern town and the crisis of conscience that rocked it."
+    },
+    {
+      "id": 3,
+      "title": "1984",
+      "author": "George Orwell",
+      "edition": "Penguin Modern Classics Edition",
+      "published": "1949-06-08",
+      "pages": "328",
+      "publisher": "Secker & Warburg",
+      "img": "https://res.cloudinary.com/dbmxtao2a/image/upload/v1736516134/Orwell-1984-Book-Cover-48-Sweden.jpg_jfo4zc.webp",
+      "categories": [
+        "Dystopian", "Science Fiction", "Fiction", "Classics",
+        "Political Fiction", "Literary Fiction", "Totalitarianism"
+      ],
+      "description": "1984 is a novel set in a dystopian future where the world is divided into three totalitarian superpowers. The protagonist, Winston Smith, struggles against the oppression of Big Brother, the Party, and the Thought Police. The book explores themes of government surveillance, totalitarianism, and individual freedom."
+    },
+    {
+      "id": 4,
+      "title": "The Catcher in the Rye",
+      "author": "J.D. Salinger",
+      "edition": "Revised Edition",
+      "published": "1951-07-16",
+      "pages": "277",
+      "publisher": "Little, Brown and Company",
+      "img": "https://res.cloudinary.com/dbmxtao2a/image/upload/v1736516075/4e3e22ab00f04d467c0c285ad1f270fe_icll5g.jpg",
+      "categories": [
+        "Fiction", "Literary Fiction", "Classics", "Young Adult",
+        "Coming-of-age", "American Literature"
+      ],
+      "description": "The Catcher in the Rye is a story of a disillusioned young man named Holden Caulfield, who is expelled from prep school and wanders the streets of New York, battling with his own identity and his distrust of the adult world. The novel is a timeless exploration of teenage angst, alienation, and the complexities of growing up."
+    },
+    {
+      "id": 5,
+      "title": "The Great Gatsby",
+      "author": "F. Scott Fitzgerald",
+      "edition": "Scribner Edition",
+      "published": "1925-04-10",
+      "pages": "180",
+      "publisher": "Charles Scribner's Sons",
+      "img": "https://res.cloudinary.com/dbmxtao2a/image/upload/v1736516099/5315e910834791.560ebecae31ff_vvxgn9.jpg",
+      "categories": [
+        "Fiction", "Classics", "American Literature", "Historical Fiction",
+        "Romance", "Literary Fiction"
+      ],
+      "description": "The Great Gatsby is the story of Jay Gatsby's unrequited love for Daisy Buchanan, set in the Jazz Age on Long Island. Through the eyes of narrator Nick Carraway, the novel explores themes of ambition, wealth, love, and disillusionment, offering a sharp critique of the American Dream."
+    }
+  ]

@@ -2,22 +2,31 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSAppTransportSecurity</key>
-	<dict>
-		<key>NSExceptionDomains</key>
-		<dict>
-			<key>books.google.com</key>
-			<dict>
-				<key>NSExceptionAllowsInsecureHTTPLoads</key>
-				<true/>
-				<key>NSExceptionMinimumTLSVersion</key>
-				<string>TLSv1.2</string>
-			</dict>
-		</dict>
-	</dict>
-	<key>CFBundleURLTypes</key>
-	<array>
-		<dict/>
-	</array>
+    <!-- Photo Library Usage Permission -->
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>We need access to your photo library to change your profile picture.</string>
+
+    <!-- App Transport Security for Books API -->
+    <key>NSAppTransportSecurity</key>
+    <dict>
+        <key>NSExceptionDomains</key>
+        <dict>
+            <key>books.google.com</key>
+            <dict>
+                <key>NSExceptionAllowsInsecureHTTPLoads</key>
+                <true/>
+                <key>NSExceptionMinimumTLSVersion</key>
+                <string>TLSv1.2</string>
+            </dict>
+        </dict>
+    </dict>
+
+    <!-- URL Scheme (Cloudinary or other integration, can be left empty if not used) -->
+    <key>CFBundleURLTypes</key>
+    <array>
+        <dict>
+            <!-- Add your Cloudinary or other app-related URL scheme here, if needed -->
+        </dict>
+    </array>
 </dict>
 </plist>
